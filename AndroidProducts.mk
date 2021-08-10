@@ -19,5 +19,5 @@
 PRODUCT_MAKEFILES := \
      $(LOCAL_DIR)/twrp_rosemary.mk
 
-COMMON_LUNCH_CHOICES := \ twrp_rosemary-userdebug
-COMMON_LUNCH_CHOICES := \ twrp_rosemary-eng
+COMMON_LUNCH_CHOICES := twrp_rosemary-userdebug
+COMMON_LUNCH_CHOICES := twrp_rosemary-eng
