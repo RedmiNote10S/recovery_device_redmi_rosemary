@@ -17,4 +17,6 @@
 #
 
 PRODUCT_MAKEFILES := \
-     $(LOCAL_DIR)/omni_rosemary.mk
+     $(LOCAL_DIR)/twrp_rosemary.mk
+
+COMMON_LUNCH_CHOICES := \ twrp_rosemary-userdebug
