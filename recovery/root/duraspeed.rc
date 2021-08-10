@@ -1,0 +1,26 @@
+on boot
+    # cpu_loading
+    chown system system /proc/cpu_loading/onoff
+    chmod 0664 /proc/cpu_loading/onoff
+    chown system system /proc/cpu_loading/overThrhld
+    chmod 0664 /proc/cpu_loading/overThrhld
+    chown system system /proc/cpu_loading/poltime_nsecs
+    chmod 0664 /proc/cpu_loading/poltime_nsecs
+    chown system system /proc/cpu_loading/poltime_secs
+    chmod 0664 /proc/cpu_loading/poltime_secs
+    chown system system /proc/cpu_loading/uevent_enable
+    chmod 0664 /proc/cpu_loading/uevent_enable
+
+    # mtk-perf
+    chown system system /proc/mtk-perf/mt_customized_target
+    chmod 0664 /proc/mtk-perf/mt_customized_target
+    chown system system /proc/mtk-perf/mt_throttle_ms
+    chmod 0664 /proc/mtk-perf/mt_throttle_ms
+    chown system system /proc/mtk-perf/lowmem_hint_enable
+    chmod 0664 /proc/mtk-perf/lowmem_hint_enable
+
+on property:persist.vendor.sys.vm.drop_caches=*
+    write /proc/sys/vm/drop_caches ${persist.vendor.sys.vm.drop_caches}
+
+on post-fs-data
+    mkdir /data/duraspeed 0660 root root encryption=None

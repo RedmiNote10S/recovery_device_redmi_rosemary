@@ -1,0 +1,21 @@
+service gsid /system/bin/gsid
+    interface aidl gsiservice
+    oneshot
+    disabled
+    user root
+    group root system media_rw
+
+on post-fs
+    mkdir /metadata/gsi 0771 root system
+    mkdir /metadata/gsi/dsu 0771 root system
+    mkdir /metadata/gsi/ota 0771 root system
+    mkdir /metadata/gsi/remount 0771 root system
+
+on post-fs-data
+    mkdir /data/gsi 0700 root root encryption=None
+    mkdir /data/gsi/dsu 0700 root root
+    mkdir /data/gsi/ota 0700 root root
+    mkdir /data/gsi/remount 0700 root root
+
+on boot
+    exec_background - root root -- /system/bin/gsid run-startup-tasks

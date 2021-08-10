@@ -1,0 +1,77 @@
+on property:vold.miui=factoryreset
+
+    # Mount binderfs
+    mkdir /dev/binderfs
+    mount binder binder /dev/binderfs stats=global
+    chmod 0755 /dev/binderfs
+
+
+    symlink /dev/binderfs/binder /dev/binder
+    symlink /dev/binderfs/hwbinder /dev/hwbinder
+    symlink /dev/binderfs/vndbinder /dev/vndbinder
+
+    chmod 0666 /dev/binderfs/hwbinder
+    chmod 0666 /dev/binderfs/binder
+    chmod 0666 /dev/binderfs/vndbinder
+
+    # debugfs
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
+    # Create location for fs_mgr to store abbreviated output from filesystem
+    # checker programs.
+    mkdir /dev/fscklogs 0770 root system
+
+    wait /dev/block/platform/bootdevice
+    mount_all miui.factoryreset.fstab --early
+
+    chmod 0660 /dev/teei_client
+    chown system system /dev/teei_client
+    chmod 0660 /dev/teei_config
+    chown system system /dev/teei_config
+    chmod 0666 /dev/isee_tee0
+    chown system drmrpc /dev/isee_tee0
+
+    chmod 0660 /dev/tz_vfs
+    chown system system /dev/tz_vfs
+    chmod 0660 /dev/teei_fp
+    chown system /dev/teei_fp
+    chown system drmrpc /dev/ut_keymaster
+    chmod 0660 /dev/ut_keymaster
+    # rpmb device
+    chmod 0660 /dev/rpmb0
+    chown system system /dev/rpmb0
+    # legacy rpmb device for cross-platform compatibility
+    chmod 0660 /dev/emmcrpmb0
+    chown system system /dev/emmcrpmb0
+    chown system system /dev/utr_tui
+    chmod 0660 /dev/utr_tui
+    write /proc/bootprof "start teei_daemon (on fs)"
+    start teei_daemon
+    write /proc/bootprof "start teei_daemon end (on fs)"
+
+    # for logcat
+    start logd
+    # necessory services
+    start vold
+    start servicemanager
+    start hwservicemanager
+    start vndservicemanager
+
+    # keymaster etc.
+    class_start early_hal
+    wait_for_prop hwservicemanager.ready "true"
+    exec_start wait_for_keymaster
+    mount_all miui.factoryreset.fstab --late
+
+    # We chown/chmod /data again so because mount is run as root + defaults
+    chown system system /data
+    chmod 0771 /data
+    # We restorecon /data in case the userdata partition has been reset.
+    restorecon /data
+    start factoryreset
+
+service factoryreset /system/bin/recovery --wipe_data_skip_preinstall
+    class late_start
+    seclabel u:r:recovery:s0
+
