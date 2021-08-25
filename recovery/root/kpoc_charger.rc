@@ -1,7 +1,0 @@
-on charger
-    start kpoc_charger
-
-service kpoc_charger /system/bin/kpoc_charger
-    class charger
-    group system wakelock
-    capabilities BLOCK_SUSPEND SYS_ADMIN SYS_BOOT
