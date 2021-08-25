@@ -14,7 +14,6 @@ service teei_daemon /vendor/bin/teei_daemon \
     -r 07407000000000000000000000000000 \
     -r 05160000000000000000000000000000 \
     -r 91dba524a6e24909acc48abd7163121a \
-    -r 57f02fe81d5a11ea8d23d7abe98b8462 \
     -r 08070000000000000000000000008270 \
     -r 09080000000000000000000000009381 \
     -t 08030000000000000000000000000000 \
@@ -22,10 +21,11 @@ service teei_daemon /vendor/bin/teei_daemon \
     -t 98fb95bcb4bf42d26473eae48690d7ea \
     -t 7b66512021214487ba710a51d7ea78fe \
     -t 09010000000000000000000000000000
-    user root
-    group root
+    class core
+    user system
+    group system
     disabled
-    seclabel u:r:recovery:s0
+   # oneshot
 
 on boot
     chown system system /sys/bus/platform/devices/utos/dcih_notify_test
@@ -110,7 +110,7 @@ on load_persist_props_action
     chown system system /data/vendor/key_provisioning
     write /proc/bootprof "start teei cfg end (on load_persist_props_action)"
 
-on property:crypto.ready=1
+on property:vold.decrypt=trigger_restart_framework
     write /proc/bootprof "start teei cfg (on trigger_restart_framework)"
     mkdir /data/vendor/thh
     mkdir /data/vendor/thh/system
