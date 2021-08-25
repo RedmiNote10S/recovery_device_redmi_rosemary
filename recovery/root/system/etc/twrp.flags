@@ -1,22 +1,17 @@
 # mount point       fstype    device                                                                flags
-/system             ext4      system                                                                flags=slotselect;display="System";backup=1;logical;
-/system_image       emmc      system                                                                flags=slotselect;display="System image";backup=1;flashimg=1;logical;
-/vendor             ext4      vendor                                                                flags=slotselect;display="Vendor";backup=1;logical;
-/vendor_image       emmc      vendor                                                                flags=slotselect;display="Vendor image";backup=1;flashimg=1;logical;
-/product            ext4      product                                                               flags=display="Product";backup=1;logical;
-/product_image      emmc      product                                                               flags=display="Product image";backup=1;flashimg=1;logical;
+/system             ext4      /system                                                               flags=slotselect;display="System";backup=1;logical;
+/vendor             ext4      /vendor                                                               flags=slotselect;display="Vendor";backup=1;logical;
+/product            ext4      /product                                                              flags=display="Product";backup=1;logical;
 /metadata           ext4      /dev/block/platform/bootdevice/by-name/md_udc                         flags=display="Metadata";
 /data               f2fs      /dev/block/platform/bootdevice/by-name/userdata                       flags=display="Data";
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
 /protect_f          ext4      /dev/block/platform/bootdevice/by-name/protect1                       flags=display="Protect_f";
 /protect_s          ext4      /dev/block/platform/bootdevice/by-name/protect2                       flags=display="Protect_s";
-/nvdata             ext4      /dev/block/platform/bootdevice/by-name/nvdata                         flags=display="Nvdata";
-/nvcfg              ext4      /dev/block/platform/bootdevice/by-name/nvcfg                          flags=display="Nvcfg";
+/nvdata             ext4      /dev/block/platform/bootdevice/by-name/nvdata                         flags=display="Nvdata";subpartitionof=/nvram
+/nvcfg              ext4      /dev/block/platform/bootdevice/by-name/nvcfg                          flags=display="Nvcfg";subpartitionof=/nvram
 /rescue             ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Rescue";
 /persist            ext4      /dev/block/platform/bootdevice/by-name/persist                        flags=display="Persist";
 /persist_image      emmc      /dev/block/platform/bootdevice/by-name/persist                        flags=display="Persist image";backup=1;flashimg=1;
-/externdevice*      auto      auto                                                                  flags=display="Externdevice*";logical;
-/usb3_xhci*         auto      vfat                                                                  flags=display="Usb3_xhci*";logical;
 /persistent         emmc      /dev/block/platform/bootdevice/by-name/frp                            flags=display="Persistent";
 /nvram              emmc      /dev/block/platform/bootdevice/by-name/nvram                          flags=display="Nvram";
 /proinfo            emmc      /dev/block/platform/bootdevice/by-name/proinfo                        flags=display="Proinfo";
