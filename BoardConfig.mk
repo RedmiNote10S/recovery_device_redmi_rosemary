@@ -16,6 +16,9 @@
 # limitations under the License.
 #
 
+# Allow missing deps (required to build)
+ALLOW_MISSING_DEPENDENCIES := true
+
 DEVICE_PATH := device/xiaomi/rosemary
 
 # Architecture
