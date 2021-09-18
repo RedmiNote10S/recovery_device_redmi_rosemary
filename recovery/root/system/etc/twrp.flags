@@ -1,7 +1,7 @@
 # mount point       fstype    device                                                                flags
-/system             ext4      /system                                                               flags=slotselect;display="System";backup=1;logical;
-/vendor             ext4      /vendor                                                               flags=slotselect;display="Vendor";backup=1;logical;
-/product            ext4      /product                                                              flags=display="Product";backup=1;logical;
+/system             ext4      /system                                                               logical;flags=slotselect;display="System";backup=1;
+/vendor             ext4      /vendor                                                               logical;flags=slotselect;display="Vendor";backup=1;
+/product            ext4      /product                                                              logical;flags=display="Product";backup=1;
 /metadata           ext4      /dev/block/platform/bootdevice/by-name/md_udc                         flags=display="Metadata";
 /data               f2fs      /dev/block/platform/bootdevice/by-name/userdata                       flags=display="Data";fileencryption=ice:aes-256-cts;wrappedkey;keydirectory=/metadata/vold/metadata_encryption;encryptable=footer;
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
