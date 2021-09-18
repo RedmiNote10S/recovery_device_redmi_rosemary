@@ -107,6 +107,9 @@ BOARD_MAIN_SIZE := 9126805504
 BOARD_MAIN_PARTITION_LIST := system vendor product
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
 
+# System.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # AB Gaming
 AB_OTA_UPDATER := true
 BOARD_USES_RECOVERY_AS_BOOT := true
@@ -129,12 +132,13 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 BOARD_USES_METADATA_PARTITION := true
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
-    libkeymaster4.1 \
+    libkeymaster4 \
     libpuresoftkeymasterdevice \
     ashmemd_aidl_interface-cpp \
     libashmemd_client
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
