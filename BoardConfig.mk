@@ -37,7 +37,7 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a75
 
 # Bootloader
-TARGET_NO_BOOTLOADER := true
+TARGET_NO_BOOTLOADER := false
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := rosemary
