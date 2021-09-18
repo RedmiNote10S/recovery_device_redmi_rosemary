@@ -107,6 +107,9 @@ BOARD_MAIN_SIZE := 9126805504
 BOARD_MAIN_PARTITION_LIST := system vendor product
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
 
+# System.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # AB Gaming
 AB_OTA_UPDATER := true
 BOARD_USES_RECOVERY_AS_BOOT := true
