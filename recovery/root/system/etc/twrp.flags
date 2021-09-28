@@ -1,5 +1,5 @@
 # mount point       fstype    device                                                                flags
-/system_root        ext4      /system                                                               flags=slotselect;display="System";logical;backup=1;
+/system_root        ext4      /system                                                               flags=slotselect;display="System_root";logical;backup=1;
 /vendor             ext4      /vendor                                                               flags=slotselect;display="Vendor";logical;backup=1;
 /product            ext4      /product                                                              flags=display="Product";logical;backup=1;
 
