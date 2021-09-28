@@ -3,8 +3,8 @@ system                                     /system          ext4                
 vendor                                     /vendor          ext4                ro wait,slotselect,avb,logical,first_stage_mount
 product                                    /product         ext4                ro wait,slotselect,avb,logical,first_stage_mount
 
-/dev/block/bootdevice/by-name/metadata     /metadata        ext4                noatime,nosuid,nodev,discard wait,formattable,wrappedkey,first_stage_mount
+/dev/block/bootdevice/by-name/metadata     /metadata        ext4                noatime,nosuid,nodev,discard            wait,formattable,wrappedkey,first_stage_mount
 
-/dev/block/bootdevice/by-name/userdata     /data            f2fs                noatime,nosuid,nodev,noauto_da_alloc,discard,errors=panic,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=block,fileencryption=aes-256-xts:aes-256-cts:v1,wrappedkey,keydirectory=/metadata/vold/metadata_encryption
+/dev/block/bootdevice/by-name/userdata     /data            f2fs                noatime,nosuid,nodev,noauto_da_alloc,discard,errors=panic,inlinecrypt               wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=block,fileencryption=aes-256-xts:aes-256-cts:v1,wrappedkey,keydirectory=/metadata/vold/metadata_encryption
 
-/dev/block/bootdevice/by-name/misc         /misc emmc defaults defaults
+/dev/block/bootdevice/by-name/misc         /misc            emmc                defaults       defaults
