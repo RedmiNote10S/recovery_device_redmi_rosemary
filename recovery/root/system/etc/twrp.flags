@@ -1,9 +1,9 @@
 # mount point       fstype    device                                                                flags
-/system             ext4      /system                                                               logical;flags=slotselect;display="System";backup=1;
-/vendor             ext4      /vendor                                                               logical;flags=slotselect;display="Vendor";backup=1;
-/product            ext4      /product                                                              logical;flags=display="Product";backup=1;
-/metadata           ext4      /dev/block/platform/bootdevice/by-name/md_udc                         flags=display="Metadata";
-/data               f2fs      /dev/block/platform/bootdevice/by-name/userdata                       flags=display="Data";fileencryption=ice:aes-256-cts;wrappedkey;keydirectory=/metadata/vold/metadata_encryption;encryptable=footer;
+/system_root        ext4      /system                                                               flags=slotselect;display="System";logical;backup=1;
+/vendor             ext4      /vendor                                                               flags=slotselect;display="Vendor";logical;backup=1;
+/product            ext4      /product                                                              flags=display="Product";logical;backup=1;
+
+/metadata           ext4      /dev/block/platform/bootdevice/by-name/metadata                       flags=display="Metadata";backup=1;wrappedkey
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
 /protect_f          ext4      /dev/block/platform/bootdevice/by-name/protect1                       flags=display="Protect_f";
 /protect_s          ext4      /dev/block/platform/bootdevice/by-name/protect2                       flags=display="Protect_s";
@@ -25,6 +25,8 @@
 /logo               emmc      /dev/block/platform/bootdevice/by-name/logo                           flags=display="Logo";
 /expdb              emmc      /dev/block/platform/bootdevice/by-name/expdb                          flags=display="Expdb";
 /seccfg             emmc      /dev/block/platform/bootdevice/by-name/seccfg                         flags=display="Seccfg";
+/external_sd        auto      /dev/block/mmcblk0p1 /dev/block/mmcblk0                               flags=display="SDCard"
+/usb_otg            auto      /dev/block/sdd1      /dev/block/sdd                                   flags=display="USB_OTG";wipeingui;removable;backup=0
 /tee1               emmc      /dev/block/platform/bootdevice/by-name/tee1                           flags=display="Tee1";
 /tee2               emmc      /dev/block/platform/bootdevice/by-name/tee2                           flags=display="Tee2";
 /scp1               emmc      /dev/block/platform/bootdevice/by-name/scp1                           flags=display="Scp1";
