@@ -31,8 +31,6 @@ $(call inherit-product, device/xiaomi/rosemary/device.mk)
 # Inherit some common TWRP? stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
-
 # Fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
@@ -42,6 +40,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEVICE := rosemary
 PRODUCT_NAME := twrp_rosemary
 PRODUCT_BRAND := Redmi
-PRODUCT_MODEL := Redmi
+PRODUCT_MODEL := Note 10S
 PRODUCT_MANUFACTURER := xiaomi
-PRODUCT_RELEASE_NAME := Redmi Redmi
+PRODUCT_RELEASE_NAME := Redmi Note 10S
