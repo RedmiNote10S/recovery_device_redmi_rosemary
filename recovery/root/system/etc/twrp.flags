@@ -3,7 +3,7 @@
 /vendor             ext4      /vendor                                                               flags=slotselect;display="Vendor";logical;backup=1;
 /product            ext4      /product                                                              flags=display="Product";logical;backup=1;
 
-/metadata           ext4      /dev/block/platform/bootdevice/by-name/metadata                       flags=display="Metadata";backup=1;wrappedkey
+/metadata           ext4      /dev/block/platform/bootdevice/by-name/md_udc                         flags=display="Metadata";backup=1;wrappedkey
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
 /protect_f          ext4      /dev/block/platform/bootdevice/by-name/protect1                       flags=display="Protect_f";
 /protect_s          ext4      /dev/block/platform/bootdevice/by-name/protect2                       flags=display="Protect_s";
