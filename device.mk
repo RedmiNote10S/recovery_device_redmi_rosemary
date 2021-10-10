@@ -39,7 +39,6 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_system=true
 
 # V A/B
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
 ENABLE_VIRTUAL_AB := true
 
 # Boot control HAL
