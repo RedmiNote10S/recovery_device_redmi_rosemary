@@ -38,7 +38,7 @@ service keystore_auth /system/bin/keystore_auth
 
 service keystore /system/bin/keystore /tmp/misc/keystore
     user root
-    group root drmrpc readproc
+    group root drmrpc readproc log
     disabled
     seclabel u:r:recovery:s0
 
