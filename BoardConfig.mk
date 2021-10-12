@@ -1,4 +1,4 @@
-																				#
+#
 # Copyright (C) 2020 The Android Open Source Project
 # Copyright (C) 2020 The TWRP Open Source Project
 # Copyright (C) 2020 SebaUbuntu's TWRP device tree generator
@@ -147,6 +147,7 @@ TW_DEFAULT_BRIGHTNESS := 1200
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
 TW_HAS_MTP := true
+TW_INCLUDE_REPACKTOOLS := true
 
 # logcd
 TWRP_INCLUDE_LOGCAT := true
