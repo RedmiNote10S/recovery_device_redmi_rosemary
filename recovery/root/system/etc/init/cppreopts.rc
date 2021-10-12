@@ -20,6 +20,7 @@ service cppreopts /system/bin/cppreopts.sh /postinstall
     ioprio rt 0
     writepid /dev/cpuset/foreground/tasks
     capabilities
+    seclabel u:r:recovery:s0
 
 # Post install is above Treble VINTF, because it runs some utilities from
 # /system. Therefore, the fstab can only be in either /system or /product.
