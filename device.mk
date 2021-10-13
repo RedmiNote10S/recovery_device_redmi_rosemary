@@ -43,7 +43,6 @@ ENABLE_VIRTUAL_AB := true
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl.recovery \
     android.hardware.boot@1.1-impl
 
 PRODUCT_PACKAGES_DEBUG += \
@@ -54,8 +53,7 @@ PRODUCT_PACKAGES += \
     cppreopts.sh \
     update_engine \
     update_verifier \
-    update_engine_sideload \
-    bootctrl.$(PRODUCT_PLATFORM).recovery
+    update_engine_sideload
     
 # Dynam
 PRODUCT_USE_DYNAMIC_PARTITION := true
@@ -68,7 +66,6 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Health Hal
 PRODUCT_PACKAGES += \
-     android.hardware.health@2.1-service \
      android.hardware.health@2.1-impl
 
 TW_OVERRIDE_SYSTEM_PROPS := \
