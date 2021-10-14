@@ -39,7 +39,7 @@ TARGET_BOARD_PLATFORM := mt6785
 PRODUCT_PLATFORM := mt6785
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := rosemary
+TARGET_OTA_ASSERT_DEVICE := rosemary,secret,maltose
 
 # File systems
 BOARD_HAS_LARGE_FILESYSTEM := true
