@@ -1,7 +1,10 @@
 # mount point       fstype    device                                                                flags
-/system             ext4      /dev/block/mapper/system_[a|b]                                        flags=display="System";slotselect;
-/vendor             ext4      /dev/block/mapper/vendor_[a|b]                                        flags=display="Vendor";slotselect;
-/product            ext4      /dev/block/mapper/product_[a|b]                                       flags=display="Product"slotselect;
+/system             ext4      /dev/block/mapper/system_a                                            flags=display="System";slotselect;
+/system             ext4      /dev/block/mapper/system_b                                            flags=display="System";slotselect;
+/vendor             ext4      /dev/block/mapper/vendor_b                                            flags=display="Vendor";slotselect;
+/vendor             ext4      /dev/block/mapper/vendor_a                                            flags=display="Vendor";slotselect;
+/product            ext4      /dev/block/mapper/product_a                                           flags=display="Product"slotselect;
+/product            ext4      /dev/block/mapper/product_b                                           flags=display="Product"slotselect;
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
 /protect_f          ext4      /dev/block/platform/bootdevice/by-name/protect1                       flags=display="Protect_f";backup=1;
 /protect_s          ext4      /dev/block/platform/bootdevice/by-name/protect2                       flags=display="Protect_s";backup=1;
