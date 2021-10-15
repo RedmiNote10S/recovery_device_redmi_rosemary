@@ -1,13 +1,13 @@
 # fstab
-system                                     /system          ext4                ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-vendor                                     /vendor          ext4                ro wait,slotselect,avb,logical,first_stage_mount
-product                                    /product         ext4                ro wait,slotselect,avb,logical,first_stage_mount
+system                                     /system          ext4                ro wait,slotselect,logical
+vendor                                     /vendor          ext4                ro wait,slotselect,logical
+product                                    /product         ext4                ro wait,slotselect,logical
 
-/dev/block/platform/bootdevice/by-name/md_udc       /metadata        ext4                noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
+/dev/block/platform/bootdevice/by-name/md_udc       /metadata        ext4                noatime,nosuid,nodev,discard wait,check,formattable
 
-/dev/block/platform/bootdevice/by-name/userdata     /data            f2fs                noatime,nosuid,nodev,discard,flush_merge,reserve_root=134217,resgid=1065,alloc_mode=reuse,fsync_mode=nobarrier,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
+/dev/block/platform/bootdevice/by-name/userdata     /data            f2fs                noatime,nosuid,nodev,discard,flush_merge,reserve_root=134217,resgid=1065,alloc_mode=reuse,fsync_mode=nobarrier,inlinecrypt wait,check,formattable,resize,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 
 /dev/block/platform/bootdevice/by-name/misc         /misc            emmc                defaults       defaults
 
-/dev/block/by-name/boot                             /boot            emmc                defaults first_stage_mount,nofail,slotselect
+/dev/block/by-name/boot                             /boot            emmc                defaults       slotselect
 
