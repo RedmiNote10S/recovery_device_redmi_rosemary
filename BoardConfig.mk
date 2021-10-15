@@ -152,3 +152,6 @@ TW_INCLUDE_REPACKTOOLS := true
 # logcd
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+
+# TW Version
+TW_DEVICE_VERSION := Rosemary Beta 1
