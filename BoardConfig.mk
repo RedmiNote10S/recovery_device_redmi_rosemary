@@ -114,7 +114,6 @@ BOARD_MAIN_PARTITION_LIST := system vendor product
 
 # AB Gaming
 AB_OTA_UPDATER := true
-BOARD_USES_RECOVERY_AS_BOOT := true
 
 # Workaround for copying error vendor files to recovery ramdisk
 TARGET_COPY_OUT_PRODUCT := product
@@ -154,4 +153,4 @@ TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
 # TW Version
-TW_DEVICE_VERSION := Rosemary Beta 1
+TW_DEVICE_VERSION := REDMI NOTE 10S BETA 1
