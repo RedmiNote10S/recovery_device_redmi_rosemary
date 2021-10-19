@@ -16,6 +16,10 @@
 # limitations under the License.
 #
 
+# Allow building with minimal manifest
+
+ALLOW_MISSING_DEPENDENCIES := true
+
 DEVICE_PATH := device/xiaomi/rosemary
 
 # Architecture
