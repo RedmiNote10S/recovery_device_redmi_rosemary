@@ -5,7 +5,7 @@ product                                    /product         ext4                
 
 /dev/block/platform/bootdevice/by-name/md_udc       /metadata        ext4                noatime,nosuid,nodev,discard wait,check,formattable
 
-/dev/block/platform/bootdevice/by-name/userdata     /data            f2fs                noatime,nosuid,nodev,discard,flush_merge,reserve_root=134217,resgid=1065,alloc_mode=reuse,fsync_mode=nobarrier,inlinecrypt wait,check,formattable,resize,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
+/dev/block/by-name/userdata                         /data            f2fs                noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,latemount,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 
 /dev/block/platform/bootdevice/by-name/misc         /misc            emmc                defaults       defaults
 
