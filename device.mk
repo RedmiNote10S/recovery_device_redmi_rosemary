@@ -17,6 +17,7 @@
 #
 
 LOCAL_PATH := device/xiaomi/rosemary
+PRODUCT_PLATFORM := mt6785
 
 # A/B
 AB_OTA_PARTITIONS += \
@@ -43,7 +44,9 @@ ENABLE_VIRTUAL_AB := true
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl
+    android.hardware.boot@1.1-impl-recovery \
+    android.hardware.boot@1.1-impl \
+    bootctrl.$(PRODUCT_PLATFORM).recovery
 
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
