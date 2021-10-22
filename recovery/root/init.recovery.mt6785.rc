@@ -80,7 +80,7 @@ on property:ro.crypto.state=unencrypted
     stop keymaster-4-0
     stop gatekeeper-1-0
         
-on property:twrp.decrypt.done=true
+on property:twrp.all.users.decrypted=true
     stop teei_daemon
     stop keymaster-4-0
     stop gatekeeper-1-0
