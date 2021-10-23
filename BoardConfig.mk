@@ -152,6 +152,10 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_HAS_MTP := true
 TW_INCLUDE_REPACKTOOLS := true
 
+# Hide notch
+TW_Y_OFFSET  := 100 
+TW_H_OFFSET  := -100
+
 # logcd
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
