@@ -50,6 +50,10 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-service \
     bootctrl.$(PRODUCT_PLATFORM).recovery
 
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.3-impl \
+    android.hardware.vibrator@1.3-service
+
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
 
