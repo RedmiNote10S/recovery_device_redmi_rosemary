@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/xiaomi/rosemary
+LOCAL_PATH := device/redmi/rosemary
 PRODUCT_PLATFORM := mt6785
 
 # A/B
