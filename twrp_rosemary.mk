@@ -26,7 +26,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Inherit from rosemary device
-$(call inherit-product, device/xiaomi/rosemary/device.mk)
+$(call inherit-product, device/redmi/rosemary/device.mk)
 
 # Inherit some common TWRP? stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
@@ -41,7 +41,7 @@ PRODUCT_DEVICE := rosemary
 PRODUCT_NAME := twrp_rosemary
 PRODUCT_BRAND := Redmi
 PRODUCT_MODEL := Note 10S
-PRODUCT_MANUFACTURER := xiaomi
+PRODUCT_MANUFACTURER := redmi
 PRODUCT_RELEASE_NAME := Redmi Note 10S
 
 # HACK: Set vendor patch level
