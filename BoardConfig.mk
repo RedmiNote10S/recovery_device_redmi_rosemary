@@ -20,7 +20,7 @@
 
 ALLOW_MISSING_DEPENDENCIES := true
 
-DEVICE_PATH := device/xiaomi/rosemary
+DEVICE_PATH := device/redmi/rosemary
 
 # Architecture
 TARGET_ARCH := arm64
