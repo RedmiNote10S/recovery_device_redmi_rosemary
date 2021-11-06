@@ -38,6 +38,7 @@
 #include <liblp/builder.h>
 #include <liblp/liblp.h>
 #include <fs_mgr_dm_linear.h>
+
 #include <libdm/dm.h>
 
 #ifndef LPTOOLS_STATIC
@@ -130,7 +131,12 @@ int main(int argc, char **argv) {
             std::cerr << "Usage: " << argv[0] << " create <partition name> <partition size>" << std::endl;
             exit(1);
         }
-        auto partName = argv[2] + ::android::base::GetProperty("ro.boot.slot_suffix", "");
+
+        std::string partName = argv[2];
+        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+        }
+
         auto size = strtoll(argv[3], NULL, 0);
         auto partition = builder->FindPartition(partName);
         if(partition != nullptr) {
@@ -159,7 +165,12 @@ int main(int argc, char **argv) {
             std::cerr << "Usage: " << argv[0] << " remove <partition name>" << std::endl;
             exit(1);
         }
-        auto partName = argv[2] + ::android::base::GetProperty("ro.boot.slot_suffix", "");
+
+        std::string partName = argv[2];
+        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+        }
+
         auto dmState = android::dm::DeviceMapper::Instance().GetState(partName);
         if(dmState == android::dm::DmDeviceState::ACTIVE) {
             android::fs_mgr::DestroyLogicalPartition(partName);
@@ -172,7 +183,12 @@ int main(int argc, char **argv) {
             std::cerr << "Usage: " << argv[0] << " resize <partition name> <newsize>" << std::endl;
             exit(1);
         }
-        auto partName = argv[2] + ::android::base::GetProperty("ro.boot.slot_suffix", "");
+
+        std::string partName = argv[2];
+        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+        }
+
         auto size = strtoll(argv[3], NULL, 0);
         auto partition = builder->FindPartition(partName);
         std::cout << "Resizing partition " << builder->ResizePartition(partition, size) << std::endl;
@@ -225,7 +241,12 @@ int main(int argc, char **argv) {
             std::cerr << "Usage: " << argv[0] << " map <partition name>" << std::endl;
             exit(1);
         }
-        auto partName = argv[2] + ::android::base::GetProperty("ro.boot.slot_suffix", "");
+
+        std::string partName = argv[2];
+        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+        }
+
         std::string dmPath;
         CreateLogicalPartitionParams params {
                 .block_device = "/dev/block/by-name/super",
@@ -242,7 +263,12 @@ int main(int argc, char **argv) {
             std::cerr << "Usage: " << argv[0] << " unmap <partition name>" << std::endl;
             exit(1);
         }
-        auto partName = argv[2] + ::android::base::GetProperty("ro.boot.slot_suffix", "");
+
+        std::string partName = argv[2];
+        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+        }
+
         auto dmState = android::dm::DeviceMapper::Instance().GetState(partName);
         if(dmState == android::dm::DmDeviceState::ACTIVE) {
             android::fs_mgr::DestroyLogicalPartition(partName);
