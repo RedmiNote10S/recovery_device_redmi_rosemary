@@ -28,7 +28,7 @@ on post-fs
      
 on fs
     install_keyring
-    
+
 service keystore_auth /system/bin/keystore_auth
     user system
     group root
