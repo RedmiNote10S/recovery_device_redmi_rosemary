@@ -15,6 +15,7 @@
  */
 
 #include <getopt.h>
+#include <regex>
 #include <inttypes.h>
 #include <sys/mount.h>
 #include <sys/stat.h>
@@ -25,7 +26,6 @@
 
 #include <iostream>
 #include <optional>
-#include <regex>
 #include <string>
 #include <vector>
 #include <chrono>
@@ -89,6 +89,13 @@ inline bool ends_with(std::string const & value, std::string const & ending)
     return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
 }
 
+std::string resolvePartition(std::string partName) {
+    if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
+        partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
+    }
+    return partName;
+}
+
 std::string findGroup(std::unique_ptr<MetadataBuilder>& builder) {
     auto groups = builder->ListGroups();
 
@@ -132,10 +139,7 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-        std::string partName = argv[2];
-        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
-            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
-        }
+        std::string partName = resolvePartition(argv[2]);
 
         auto size = strtoll(argv[3], NULL, 0);
         auto partition = builder->FindPartition(partName);
@@ -166,10 +170,7 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-        std::string partName = argv[2];
-        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
-            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
-        }
+        std::string partName = resolvePartition(argv[2]);
 
         auto dmState = android::dm::DeviceMapper::Instance().GetState(partName);
         if(dmState == android::dm::DmDeviceState::ACTIVE) {
@@ -184,10 +185,7 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-        std::string partName = argv[2];
-        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
-            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
-        }
+        std::string partName = resolvePartition(argv[2]);
 
         auto size = strtoll(argv[3], NULL, 0);
         auto partition = builder->FindPartition(partName);
@@ -242,10 +240,7 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-        std::string partName = argv[2];
-        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
-            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
-        }
+        std::string partName = resolvePartition(argv[2]);
 
         std::string dmPath;
         CreateLogicalPartitionParams params {
@@ -264,10 +259,7 @@ int main(int argc, char **argv) {
             exit(1);
         }
 
-        std::string partName = argv[2];
-        if(!::android::base::EndsWith(partName, "_a") && !::android::base::EndsWith(partName, "_b")) {
-            partName.append(::android::base::GetProperty("ro.boot.slot_suffix", ""));
-        }
+        std::string partName = resolvePartition(argv[2]);
 
         auto dmState = android::dm::DeviceMapper::Instance().GetState(partName);
         if(dmState == android::dm::DmDeviceState::ACTIVE) {
