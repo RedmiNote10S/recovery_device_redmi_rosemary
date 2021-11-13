@@ -164,9 +164,11 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.
 TW_HAS_NO_RECOVERY_PARTITION := true
 
 # Hide notch
-TW_Y_OFFSET  := 100 
-TW_H_OFFSET  := -100
-
+# Don't hide notch on OrangeFox builds
+ifneq ($(OF_HIDE_NOTCH),1)
+    TW_Y_OFFSET  := 100 
+    TW_H_OFFSET  := -100
+endif
 # Decryption
 TW_INCLUDE_CRYPTO := true
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
