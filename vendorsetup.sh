@@ -74,8 +74,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export OF_STATUS_INDENT_LEFT=48
 	export OF_STATUS_INDENT_RIGHT=48
 	export OF_CLOCK_POS=1
-	export OF_TWRP_COMPATIBILITY_MODE=1
-	export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
 	# maximum permissible splash image size (in kilobytes); do *NOT* increase!
 	export OF_SPLASH_MAX_SIZE=104
 
