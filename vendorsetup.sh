@@ -38,7 +38,8 @@ fi
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
    	export TW_DEFAULT_LANGUAGE="en"
 	export LC_ALL="C"
- 	export ALLOW_MISSING_DEPENDENCIES=true
+ 	export OF_FLASHLIGHT_ENABLE=0
+	export ALLOW_MISSING_DEPENDENCIES=true
 	export TARGET_DEVICE_ALT="maltose, secret"
 	export OF_USE_GREEN_LED=0
 	export OF_HIDE_NOTCH=1
@@ -55,7 +56,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_USE_XZ_UTILS=1
 	export OF_SKIP_MULTIUSER_FOLDERS_BACKUP=1
         export OF_QUICK_BACKUP_LIST="/boot;/data;"
-	export OF_PATCH_AVB20=1
         export FOX_DELETE_AROMAFM=1
         export FOX_BUGGED_AOSP_ARB_WORKAROUND="1546300800"; # Tuesday, January 1, 2019 12:00:00 AM GMT+00:00
         export FOX_ENABLE_APP_MANAGER=1
@@ -66,7 +66,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export OF_SUPPORT_ALL_BLOCK_OTA_UPDATES=1
         export OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR=1
         export OF_DISABLE_MIUI_OTA_BY_DEFAULT=1
-
+	export OF_USE_NEW_MAGISKBOOT=1
 	# screen settings
 	export OF_SCREEN_H=2400
 	export OF_STATUS_H=100
@@ -74,15 +74,15 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export OF_STATUS_INDENT_LEFT=48
 	export OF_STATUS_INDENT_RIGHT=48
 	export OF_CLOCK_POS=1
-
+	export OF_TWRP_COMPATIBILITY_MODE=1
+	export OF_DISABLE_MIUI_SPECIFIC_FEATURES=1
 	# maximum permissible splash image size (in kilobytes); do *NOT* increase!
 	export OF_SPLASH_MAX_SIZE=104
 
 	# run a process after formatting data to work-around MTP issues
 	export OF_RUN_POST_FORMAT_PROCESS=1
 	export OF_AB_DEVICE=1
-	
-	export OF_SKIP_ORANGEFOX_PROCESS=1
+	export FOX_USE_SPECIFIC_MAGISK_ZIP="${ANDROID_BUILD_TOP}/device/redmi/rosemary/Magisk/Magisk.zip"	
 fi
 #
 
