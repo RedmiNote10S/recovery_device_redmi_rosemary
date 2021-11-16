@@ -1,4 +1,4 @@
-# TWRP device trees for Redmi Note 10S (rosemary)
+# TWRP device tree for Redmi Note 10S (rosemary)
 
 ## Status
 
