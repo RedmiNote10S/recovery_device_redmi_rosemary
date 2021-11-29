@@ -14,9 +14,9 @@
 /spmfw              emmc      /dev/block/platform/bootdevice/by-name/spmfw      flags=slotselect;      
 /dtbo               emmc      /dev/block/platform/bootdevice/by-name/dtbo	flags=slotselect;
 /otp                emmc      /dev/block/platform/bootdevice/by-name/otp
-/vbmeta             emmc      /dev/block/platform/bootdevice/by-name/vbmeta                         flags=slotselect;display="Vbmeta";backup=1;
+/vbmeta             emmc      /dev/block/platform/bootdevice/by-name/vbmeta                         flags=slotselect;display="Vbmeta";backup=1;flashimg=1;
 /cust               ext4      /dev/block/platform/bootdevice/by-name/cust                           flags=display="Cust";
 
 # Removablee
-/external_sd        vfat      /dev/block/mmcblk0p1         /dev/block/mmcblk0  flags=storage;wipeingui;removable           
+/external_sd        vfat      /dev/block/mmcblk0p1         /dev/block/mmcblk0  flags=storage;wipeingui;removable
 /usb-otg            vfat      /dev/block/sdd1                     flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8";
