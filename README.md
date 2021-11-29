@@ -33,7 +33,6 @@ Current state of features (from [here](https://twrp.me/faq/OfficialMaintainer.ht
 - [X] poweroff
 - [X] battery level
 - [X] temperature
-- [ ] encrypted backups (no option, need to test)
 - [ ] input devices via USB (USB-OTG) - keyboard, mouse and disks (not supported by the device) (not tested)
 - [ ] USB mass storage export (not tested)
 - [X] set brightness
