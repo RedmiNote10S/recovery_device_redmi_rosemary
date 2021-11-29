@@ -151,6 +151,12 @@ TW_INCLUDE_REPACKTOOLS := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
+# Flag added by me but not in official TWRP sources
+# Will be submitted to gerrit
+#
+# Disables "Reflash TWRP after flashing a ROM" option (in both settings and zip install menu)
+# This **causes** AVB errors when reflashing MIUI
+TW_NO_AUTOREFLASH := true 
 
 # Device config
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
