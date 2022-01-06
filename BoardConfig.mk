@@ -54,10 +54,8 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x07c08000
 BOARD_KERNEL_TAGS_OFFSET := 0x0bc08000
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-BOARD_INCLUDE_RECOVERY_DTBO := true
 
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 TARGET_KERNEL_SOURCE := kernel/redmi/rosemary
 TARGET_KERNEL_CONFIG := rosemary_defconfig
@@ -142,7 +140,7 @@ PLATFORM_VERSION := 16.1.0
 ## TWRP-Specific configuration
 
 TW_THEME := portrait_hdpi
-TW_DEVICE_VERSION := BETA-7
+TW_DEVICE_VERSION := RC-1
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_HAS_MTP := true
@@ -151,18 +149,13 @@ TW_INCLUDE_REPACKTOOLS := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
-# Flag added by me but not in official TWRP sources
-# Will be submitted to gerrit
-#
-# Disables "Reflash TWRP after flashing a ROM" option (in both settings and zip install menu)
-# This **causes** AVB errors when reflashing MIUI
-TW_NO_AUTOREFLASH := true 
 
 # Device config
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 1200
 TW_SCREEN_BLANK_ON_BOOT := true
+TW_LEDS_HAPTICS_DIR := /sys/bus/platform/devices/aw8622
 
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 RECOVERY_SDCARD_ON_DATA := true
@@ -175,6 +168,7 @@ ifneq ($(OF_HIDE_NOTCH),1)
     TW_Y_OFFSET  := 100 
     TW_H_OFFSET  := -100
 endif
+
 # Decryption
 TW_INCLUDE_CRYPTO := true
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
