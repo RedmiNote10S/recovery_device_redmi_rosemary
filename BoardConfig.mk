@@ -155,7 +155,7 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 1200
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_LEDS_HAPTICS_DIR := /sys/bus/platform/devices/aw8622
+TW_SUPPORT_INPUT_1_2_HAPTICS := true
 
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 RECOVERY_SDCARD_ON_DATA := true
