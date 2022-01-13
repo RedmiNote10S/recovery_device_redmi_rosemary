@@ -36,7 +36,7 @@ Current state of features (from [here](https://twrp.me/faq/OfficialMaintainer.ht
 - [ ] input devices via USB (USB-OTG) - keyboard, mouse and disks (not supported by the device) (not tested)
 - [ ] USB mass storage export (not tested)
 - [X] set brightness
-- [ ] vibrate (Doesn't work, WIP)
+- [X] vibrate (Doesn't work, WIP)
 - [X] screenshot
 - [X] partition SD card
 
