@@ -41,7 +41,6 @@ if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 	echo -e "\x1b[96mSetting up OrangeFox build vars...\x1b[m"
 	if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 		export OF_FLASHLIGHT_ENABLE=0
-		export ALLOW_MISSING_DEPENDENCIES=true
 		export TARGET_DEVICE_ALT="maltose, secret"
 		export OF_USE_GREEN_LED=0
 		export OF_HIDE_NOTCH=1
@@ -87,4 +86,3 @@ if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 		export FOX_USE_SPECIFIC_MAGISK_ZIP="$(gettop)/device/redmi/rosemary/Magisk/Magisk.zip"
 	fi
 fi
-#

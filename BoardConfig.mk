@@ -17,7 +17,6 @@
 #
 
 # Allow building with minimal manifest
-
 ALLOW_MISSING_DEPENDENCIES := true
 
 DEVICE_PATH := device/redmi/rosemary
@@ -103,7 +102,7 @@ BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := main
 
 BOARD_MAIN_PARTITION_LIST := system vendor product
-BOARD_MAIN_SIZE := 4561305600
+BOARD_MAIN_SIZE := 9122611200
 
 # File systems
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -171,7 +170,7 @@ endif
 
 # Decryption
 TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
