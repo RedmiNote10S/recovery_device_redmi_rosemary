@@ -57,9 +57,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Health Hal
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service \
-    libhealthd.$(PRODUCT_PLATFORM)
-
+    android.hardware.health@2.1-service
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
@@ -67,7 +65,7 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-mtkimpl
 
 PRODUCT_PACKAGES_DEBUG += \
-    bootctrl
+    bootctl
 
 PRODUCT_PACKAGES += \
 	android.hardware.vibrator@1.2-service.mtk.recovery
@@ -79,7 +77,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
-
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
