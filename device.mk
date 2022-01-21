@@ -68,7 +68,7 @@ PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
 PRODUCT_PACKAGES += \
-	android.hardware.vibrator@1.2-service.mtk.recovery
+	android.hardware.vibrator@1.3-service.mtk.recovery
 
 # Fastbootd
 PRODUCT_PACKAGES += \
