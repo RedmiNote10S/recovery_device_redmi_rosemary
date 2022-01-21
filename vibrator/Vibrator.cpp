@@ -22,7 +22,7 @@
 namespace android {
 namespace hardware {
 namespace vibrator {
-namespace V1_2 {
+namespace V1_3 {
 namespace implementation {
 
 static constexpr uint32_t MS_PER_S = 1000;
@@ -84,6 +84,14 @@ Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
     return Status::UNSUPPORTED_OPERATION;
 }
 
+Return<bool> Vibrator::supportsExternalControl() {
+    return false;
+}
+
+Return<Status> Vibrator::setExternalControl(bool enabled) {
+    return Status::UNSUPPORTED_OPERATION;
+}
+
 Return<void> Vibrator::perform(V1_0::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
     _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
     return Void();
@@ -96,6 +104,11 @@ Return<void> Vibrator::perform_1_1(V1_1::Effect_1_1 effect, EffectStrength stren
 }
 
 Return<void> Vibrator::perform_1_2(V1_2::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
+    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
+    return Void();
+}
+
+Return<void> Vibrator::perform_1_3(V1_3::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
     _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
     return Void();
 }
@@ -199,6 +212,7 @@ uint32_t Vibrator::effectToMs(Effect effect, Status* status) {
         case Effect::DOUBLE_CLICK:
             return 15;
         case Effect::TICK:
+        case Effect::TEXTURE_TICK:
             return 5;
         case Effect::THUD:
             return 5;
@@ -255,7 +269,7 @@ uint8_t Vibrator::strengthToAmplitude(EffectStrength strength, Status* status) {
 }
 
 }  // namespace implementation
-}  // namespace V1_2
+}  // namespace V1_3
 }  // namespace vibrator
 }  // namespace hardware
 }  // namespace android

@@ -14,7 +14,7 @@
 // limitations under the License.
 
 cc_binary {
-    name: "android.hardware.vibrator@1.2-service.mtk",
+    name: "android.hardware.vibrator@1.3-service.mtk",
     vendor: true,
     recovery_available: true,
     relative_install_path: "hw",
@@ -26,6 +26,7 @@ cc_binary {
         "libutils",
         "android.hardware.vibrator@1.0",
         "android.hardware.vibrator@1.1",
-        "android.hardware.vibrator@1.2"
+        "android.hardware.vibrator@1.2",
+        "android.hardware.vibrator@1.3"
     ],
 }

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef ANDROID_HARDWARE_VIBRATOR_V1_2_VIBRATOR_H
-#define ANDROID_HARDWARE_VIBRATOR_V1_2_VIBRATOR_H
+#ifndef ANDROID_HARDWARE_VIBRATOR_V1_3_VIBRATOR_H
+#define ANDROID_HARDWARE_VIBRATOR_V1_3_VIBRATOR_H
 
-#include <android/hardware/vibrator/1.2/IVibrator.h>
+#include <android/hardware/vibrator/1.3/IVibrator.h>
 #include <hidl/Status.h>
 
 namespace android {
 namespace hardware {
 namespace vibrator {
-namespace V1_2 {
+namespace V1_3 {
 namespace implementation {
 
 using android::hardware::vibrator::V1_0::EffectStrength;
@@ -48,6 +48,11 @@ class Vibrator : public IVibrator {
     Return<void> perform_1_2(V1_2::Effect effect, EffectStrength strength,
                              perform_cb _hidl_cb) override;
 
+    // Methods from ::android::hardware::vibrator::V1_3::IVibrator follow.
+    Return<bool> supportsExternalControl() override;
+    Return<Status> setExternalControl(bool enabled) override;
+    Return<void> perform_1_3(Effect effect, EffectStrength strength, perform_cb _hidl_cb) override;
+
   private:
     Return<void> perform(Effect effect, EffectStrength strength, perform_cb _hidl_cb);
     template <typename T>
@@ -67,9 +72,9 @@ class Vibrator : public IVibrator {
     timer_t mTimer{nullptr};
 };
 }  // namespace implementation
-}  // namespace V1_2
+}  // namespace V1_3
 }  // namespace vibrator
 }  // namespace hardware
 }  // namespace android
 
-#endif  // ANDROID_HARDWARE_VIBRATOR_V1_2_VIBRATOR_H
+#endif  // ANDROID_HARDWARE_VIBRATOR_V1_3_VIBRATOR_H
