@@ -40,7 +40,8 @@ fi
 if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 	echo -e "\x1b[96mSetting up OrangeFox build vars...\x1b[m"
 	if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
-		export OF_FLASHLIGHT_ENABLE=0
+		export OF_FLASHLIGHT_ENABLE=1
+        export OF_FL_PATH1="/tmp/flashlight"
 		export TARGET_DEVICE_ALT="maltose, secret"
 		export OF_USE_GREEN_LED=0
 		export OF_HIDE_NOTCH=1
