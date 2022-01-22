@@ -99,3 +99,10 @@ on boot
     start vibrator-1-3
     start boot-hal-1-1
     start health-hal-2-1
+
+# Fix flashlight on orangefox
+on property:ro.orangefox.boot=1
+    mkdir /tmp/flashlight
+    write /tmp/flashlight/max_brightness "208"
+    symlink /sys/devices/platform/flashlights_mt6360/torch_brightness /tmp/flashlight/brightness
+
