@@ -20,7 +20,7 @@ Current state of features (from [here](https://twrp.me/faq/OfficialMaintainer.ht
 - [X] Screen goes off and on
 - [X] F2FS/EXT4 Support, exFAT/NTFS where supported
 - [X] all important partitions listed in mount/backup lists
-- [ ] backup/restore to/from external (USB-OTG) storage (not supported by the device) (not tested)
+- [ ] backup/restore to/from external (USB-OTG) storage (not tested)
 - [X] [backup/restore to/from adb](https://gerrit.omnirom.org/#/c/15943/)
 - [X] decrypt /data
 - [X] Correct date
@@ -33,8 +33,6 @@ Current state of features (from [here](https://twrp.me/faq/OfficialMaintainer.ht
 - [X] poweroff
 - [X] battery level
 - [X] temperature
-- [ ] input devices via USB (USB-OTG) - keyboard, mouse and disks (not supported by the device) (not tested)
-- [ ] USB mass storage export (not tested)
 - [X] set brightness
 - [X] vibrate (Doesn't work, WIP)
 - [X] screenshot
@@ -47,4 +45,6 @@ source build/envsetup.sh
 lunch twrp_rosemary-eng
 mka bootimage
 ```
+
+> ***NOTE: For OrangeFox/TWRP builds, you can build recovery with [this patch](https://github.com/ItsVixano/android_bootable_recovery/commit/d8f3043a212e15db63ccf76ea0f09a55308e2bdf) if you want to get 60FPS on recovery***
 
