@@ -108,7 +108,7 @@ void create_pl_path(void) {
         close(fd);
         return;
     }
-    ALOGE("isEmmc = %d, pl_size: %d\n", isEmmc, pl_size);
+    ALOGE("isEmmc = %d, pl_size: %ld\n", isEmmc, pl_size);
     blk_cnt = pl_size/DM_BLK_SIZE;
 
     if (lseek(fd, 0, SEEK_SET)) {
@@ -164,7 +164,7 @@ void create_pl_path(void) {
     return;
 }
 
-int main(int argc, char** argv) {
+int main(void) {
     create_pl_path();
     return 0;
 }
