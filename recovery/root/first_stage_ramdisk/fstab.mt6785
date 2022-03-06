@@ -1,21 +1,6 @@
-# 1 "vendor/mediatek/proprietary/hardware/fstab/mt6785/fstab.in.mt6785"
-# 1 "<built-in>" 1
-# 1 "<built-in>" 3
-# 341 "<built-in>" 3
-# 1 "<command line>" 1
-# 1 "<built-in>" 2
-# 1 "vendor/mediatek/proprietary/hardware/fstab/mt6785/fstab.in.mt6785" 2
-# 149 "vendor/mediatek/proprietary/hardware/fstab/mt6785/fstab.in.mt6785"
 system /system ext4 ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-
 vendor /vendor ext4 ro wait,slotselect,avb,logical,first_stage_mount
-
-
 product /product ext4 ro wait,slotselect,avb,logical,first_stage_mount
-
-
-
-
 
 /dev/block/platform/bootdevice/by-name/md_udc /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
 
