@@ -1,22 +1,32 @@
 # mount point       fstype    device                                                                flags
+
+## User-writable / Storage partitions
+/boot               emmc      /dev/block/platform/bootdevice/by-name/boot                           flags=display="Boot";flashimg=1;backup=1;slotselect;
+/vendor_boot        emmc      /dev/block/platform/bootdevice/by-name/vendor_boot                    flags=display="Vendor Boot";flashimg=1;backup=1;slotselect;
 /cache              ext4      /dev/block/platform/bootdevice/by-name/rescue                         flags=display="Cache";
+/vbmeta             emmc      /dev/block/platform/bootdevice/by-name/vbmeta                         flags=slotselect;display="VBMeta";backup=1;flashimg=1;
+/cust               ext4      /dev/block/platform/bootdevice/by-name/cust                           flags=display="Cust";
+
+## Sensitive data (IMEI, MAC, ...)
 /protect_f          ext4      /dev/block/platform/bootdevice/by-name/protect1                       flags=display="Protect_f";backup=1;
 /protect_s          ext4      /dev/block/platform/bootdevice/by-name/protect2                       flags=display="Protect_s";backup=1;
+/nvram              emmc      /dev/block/platform/bootdevice/by-name/nvram                          flags=display="Nvram";backup=1;
 /nvdata             ext4      /dev/block/platform/bootdevice/by-name/nvdata                         flags=display="Nvdata";backup=1;
 /persist            ext4      /dev/block/platform/bootdevice/by-name/persist                        flags=display="Persist";backup=1;
 /persistent         emmc      /dev/block/platform/bootdevice/by-name/frp                            flags=display="Persistent";backup=1;
-/nvram              emmc      /dev/block/platform/bootdevice/by-name/nvram                          flags=display="Nvram";backup=1;
-/logo	            emmc      /dev/block/platform/bootdevice/by-name/logo	flags=display="Logo";backup=1;
-/boot               emmc      /dev/block/by-name/boot                                               flags=display="boot";flashimg=1;backup=1;slotselect;
-/expdb              emmc      /dev/block/platform/bootdevice/by-name/expdb
-/seccfg             emmc      /dev/block/platform/bootdevice/by-name/seccfg   
-/tee                emmc      /dev/block/platform/bootdevice/by-name/tee   flags=slotselect;            
-/spmfw              emmc      /dev/block/platform/bootdevice/by-name/spmfw      flags=slotselect;      
-/dtbo               emmc      /dev/block/platform/bootdevice/by-name/dtbo	flags=slotselect;
-/otp                emmc      /dev/block/platform/bootdevice/by-name/otp
-/vbmeta             emmc      /dev/block/platform/bootdevice/by-name/vbmeta                         flags=slotselect;display="Vbmeta";backup=1;flashimg=1;
-/cust               ext4      /dev/block/platform/bootdevice/by-name/cust                           flags=display="Cust";
 
-# Removablee
-/external_sd        vfat      /dev/block/mmcblk0p1         /dev/block/mmcblk0  flags=storage;wipeingui;removable
-/usb-otg            vfat      /dev/block/sdd1                     flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8";
+## Firmware
+/dtbo               emmc      /dev/block/platform/bootdevice/by-name/dtbo	                        flags=slotselect;
+/logo	            emmc      /dev/block/platform/bootdevice/by-name/logo	                        flags=display="Logo";backup=1;
+/expdb              emmc      /dev/block/platform/bootdevice/by-name/expdb
+/seccfg             emmc      /dev/block/platform/bootdevice/by-name/seccfg
+/tee                emmc      /dev/block/platform/bootdevice/by-name/tee                            flags=slotselect;
+/spmfw              emmc      /dev/block/platform/bootdevice/by-name/spmfw                          flags=slotselect;
+/otp                emmc      /dev/block/platform/bootdevice/by-name/otp
+
+## Removable storage
+/sdcard1            vfat      /dev/block/mmcblk0p1         /dev/block/mmcblk0                       flags=fsflags=utf8;display="MicroSD";storage;wipeingui;removable
+/usb_otg            vfat      /dev/block/sdd1              /dev/block/sdd                           flags=fsflags=utf8;display="USB-Storage";storage;wipeingui;removable;
+
+## Internal storage (for OrangeFox)
+/storage            f2fs      /data/media/0                                                         flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable;
