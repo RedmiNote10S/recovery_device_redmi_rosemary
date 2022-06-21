@@ -18,6 +18,7 @@
 
 #include <android/hardware/vibrator/1.3/IVibrator.h>
 #include <hidl/Status.h>
+#include <fcntl.h>
 
 namespace android {
 namespace hardware {
