@@ -222,6 +222,8 @@ on fs
     # rpmb device
     chmod 0660 /dev/rpmb0
     chown system system /dev/rpmb0
+    chmod 0660 /dev/mmcblk0rpmb
+    chown root system /dev/mmcblk0rpmb
     # legacy rpmb device for cross-platform compatibility
     chmod 0660 /dev/emmcrpmb0
     chown system system /dev/emmcrpmb0
