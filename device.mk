@@ -61,14 +61,13 @@ PRODUCT_PACKAGES += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-mtkimpl.recovery \
-    android.hardware.boot@1.1-mtkimpl
+    android.hardware.boot@1.1-mtkimpl.recovery
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
 PRODUCT_PACKAGES += \
-	android.hardware.vibrator@1.3-service.mtk.recovery
+    android.hardware.vibrator@1.3-service.mtk.recovery
 
 # Fastbootd
 PRODUCT_PACKAGES += \
