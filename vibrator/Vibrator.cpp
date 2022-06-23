@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "VibratorService"
+#define LOG_TAG "android.hardware.vibrator@1.3-service.mtk"
 
 #include <log/log.h>
 #include "Vibrator.h"
@@ -125,7 +125,7 @@ Return<void> Vibrator::perform(T effect, EffectStrength strength, perform_cb _hi
 }
 
 Status Vibrator::enable(bool enabled, uint32_t ms) {
-    ALOGI("Enabled: %s -> %s\n", mEnabled ? "true" : "false", enabled ? "true" : "false");
+    ALOGD("Enabled: %s -> %s\n", mEnabled ? "true" : "false", enabled ? "true" : "false");
     char file[PATH_MAX];
     char value[32];
     int ret;
@@ -207,47 +207,30 @@ const std::string Vibrator::effectToName(Effect effect) {
 
 uint32_t Vibrator::effectToMs(Effect effect, Status* status) {
     switch (effect) {
+        case Effect::TICK:
+        case Effect::TEXTURE_TICK:
+        case Effect::THUD:
+        case Effect::POP:
+            return 5;
         case Effect::CLICK:
+        case Effect::HEAVY_CLICK:
             return 10;
         case Effect::DOUBLE_CLICK:
             return 15;
-        case Effect::TICK:
-        case Effect::TEXTURE_TICK:
-            return 5;
-        case Effect::THUD:
-            return 5;
-        case Effect::POP:
-            return 5;
-        case Effect::HEAVY_CLICK:
-            return 10;
         case Effect::RINGTONE_1:
-            return 30000;
         case Effect::RINGTONE_2:
-            return 30000;
         case Effect::RINGTONE_3:
-            return 30000;
         case Effect::RINGTONE_4:
-            return 30000;
         case Effect::RINGTONE_5:
-            return 30000;
         case Effect::RINGTONE_6:
-            return 30000;
         case Effect::RINGTONE_7:
-            return 30000;
         case Effect::RINGTONE_8:
-            return 30000;
         case Effect::RINGTONE_9:
-            return 30000;
         case Effect::RINGTONE_10:
-            return 30000;
         case Effect::RINGTONE_11:
-            return 30000;
         case Effect::RINGTONE_12:
-            return 30000;
         case Effect::RINGTONE_13:
-            return 30000;
         case Effect::RINGTONE_14:
-            return 30000;
         case Effect::RINGTONE_15:
             return 30000;
     }
