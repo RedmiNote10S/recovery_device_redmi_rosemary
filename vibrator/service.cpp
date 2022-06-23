@@ -26,18 +26,13 @@ using android::hardware::vibrator::V1_3::IVibrator;
 using android::hardware::vibrator::V1_3::implementation::Vibrator;
 using namespace android;
 
-status_t registerVibratorService() {
-    sp<IVibrator> vibrator = new Vibrator();
-
-    return vibrator->registerAsService();
-}
-
 int main() {
     configureRpcThreadpool(1, true);
-    status_t status = registerVibratorService();
 
-    if (status != OK) {
-        return status;
+    sp<IVibrator> vibrator = new Vibrator();
+    
+    if (vibrator->registerAsService() != OK) {
+        return 1;
     }
 
     joinRpcThreadpool();
