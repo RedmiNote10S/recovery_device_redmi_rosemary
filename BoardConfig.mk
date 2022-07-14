@@ -41,7 +41,6 @@ TARGET_NO_BOOTLOADER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6785
-PRODUCT_PLATFORM := mt6785
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := rosemary,secret,maltose
@@ -74,7 +73,6 @@ BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # System as root
-BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # Partitions configs
@@ -93,11 +91,9 @@ BOARD_MAIN_PARTITION_LIST := system vendor product
 BOARD_MAIN_SIZE := 9122611200
 
 # File systems
-BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
+
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_F2FS := true
@@ -108,7 +104,6 @@ AB_OTA_UPDATER := true
 # Workaround for copying error vendor files to recovery ramdisk
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_VENDOR := vendor
-TARGET_COPY_OUT_SYSTEM_EXT = system_ext
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -132,8 +127,6 @@ TW_THEME := portrait_hdpi
 TW_DEVICE_VERSION := rc1
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
-TW_HAS_MTP := true
-TW_EXCLUDE_TWRPAPP := true
 TW_INCLUDE_REPACKTOOLS := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
@@ -147,7 +140,6 @@ TW_SUPPORT_INPUT_1_2_HAPTICS := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
-TW_HAS_NO_RECOVERY_PARTITION := true
 
 # Hide notch
 # Don't hide notch on OrangeFox builds
@@ -163,3 +155,4 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
+
