@@ -77,12 +77,19 @@ if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 		export FOX_BUGGED_AOSP_ARB_WORKAROUND="1546300800" # Tue Jan 1 2019 00:00:00 GMT
 		export FOX_DELETE_AROMAFM=1
 		export FOX_USE_SPECIFIC_MAGISK_ZIP="$(gettop)/device/redmi/rosemary/Magisk/Magisk.zip"
-        
+
+        export BUNDLED_MAGISK_VER="25.1"
+        export BUNDLED_MAGISK_SUM="8c50f8b8f854c1279e089c2d7d75b9457159a0f3b3f471415c38587d62ddbaee" # Sha256 sum of the prebuilt magisk
+
+            if [ -f "${FOX_USE_SPECIFIC_MAGISK_ZIP}" -a "$(sha256sum "${FOX_USE_SPECIFIC_MAGISK_ZIP}" 2>/dev/null | awk '{print $1}')" != "${BUNDLED_MAGISK_SUM}" ]
+            then
+                echo -e "\e[96m[INFO]: Removing invalid magisk zip\e[m"
+                rm -v "${FOX_USE_SPECIFIC_MAGISK_ZIP}"
+            fi
+
         if [[ ! -f "${FOX_USE_SPECIFIC_MAGISK_ZIP}" ]]
         then
             # Download prebuilt magisk for OrangeFox builds
-            BUNDLED_MAGISK_VER="25.1"
-            BUNDLED_MAGISK_SUM="8c50f8b8f854c1279e089c2d7d75b9457159a0f3b3f471415c38587d62ddbaee" # Sha256 sum of the prebuilt magisk
             echo -e "\e[96m[INFO]: Downloading Magisk v${BUNDLED_MAGISK_VER}\e[m"
             
             if [[ "$(command -v "curl")" ]]
