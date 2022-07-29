@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.vibrator@1.3-service.mtk"
 
-#include <android/hardware/vibrator/1.3/IVibrator.h>
-#include <hidl/HidlTransportSupport.h>
+#include "vibrator-impl/Vibrator.h"
 
-#include "Vibrator.h"
+#include <android-base/logging.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 
-using android::hardware::configureRpcThreadpool;
-using android::hardware::joinRpcThreadpool;
-using android::hardware::vibrator::V1_3::IVibrator;
-using android::hardware::vibrator::V1_3::implementation::Vibrator;
-using namespace android;
+using aidl::android::hardware::vibrator::Vibrator;
 
 int main() {
-    configureRpcThreadpool(1, true);
+    ABinderProcess_setThreadPoolMaxThreadCount(0);
+    std::shared_ptr<Vibrator> vib = ndk::SharedRefBase::make<Vibrator>();
 
-    sp<IVibrator> vibrator = new Vibrator();
-    
-    if (vibrator->registerAsService() != OK) {
-        return 1;
-    }
+    const std::string instance = std::string() + Vibrator::descriptor + "/default";
+    binder_status_t status = AServiceManager_addService(vib->asBinder().get(), instance.c_str());
+    CHECK(status == STATUS_OK);
 
-    joinRpcThreadpool();
-
-    return 1;
+    ABinderProcess_joinThreadPool();
+    return EXIT_FAILURE;  // should not reach
 }

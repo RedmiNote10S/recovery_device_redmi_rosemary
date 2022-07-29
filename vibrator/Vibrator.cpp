@@ -14,245 +14,166 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.vibrator@1.3-service.mtk"
+#include "vibrator-impl/Vibrator.h"
 
-#include <log/log.h>
-#include "Vibrator.h"
+#define LOG_TAG "android.hardware.vibrator-service.rosemary"
 
+#include <android-base/logging.h>
+#include <thread>
+#include <fstream>
+
+#define PCONCAT(A, B) A/B
+#define STRINGIFY_INNER(s) #s
+#define STRINGIFY(s) STRINGIFY_INNER(s)
+#define VIBRA_NODE(n) STRINGIFY(PCONCAT(/sys/devices/platform/aw8622, n))
+
+namespace aidl {
 namespace android {
 namespace hardware {
 namespace vibrator {
-namespace V1_3 {
-namespace implementation {
-
-static constexpr uint32_t MS_PER_S = 1000;
-static constexpr uint32_t NS_PER_MS = 1000000;
-
-static const char LED_DEVICE[] = "/sys/bus/platform/devices/aw8622";
-
-int write_value(const char *file, const char *value) {
-    int fd;
-    int ret;
-
-    fd = TEMP_FAILURE_RETRY(open(file, O_WRONLY));
-    if (fd < 0) {
-        ALOGE("open %s failed, errno = %d", file, errno);
-        return -errno;
-    }
-
-    ret = TEMP_FAILURE_RETRY(write(fd, value, strlen(value) + 1));
-    if (ret == -1) {
-        ret = -errno;
-    } else if (ret != strlen(value) + 1) {
-        ret = -EAGAIN;
-    } else {
-        ret = 0;
-    }
-
-    errno = 0;
-    close(fd);
-
-    return ret;
-}
-
-
-Vibrator::Vibrator() {
-    sigevent se{};
-    se.sigev_notify = SIGEV_THREAD;
-    se.sigev_value.sival_ptr = this;
-    se.sigev_notify_function = timerCallback;
-    se.sigev_notify_attributes = nullptr;
-
-    if (timer_create(CLOCK_REALTIME, &se, &mTimer) < 0) {
-        ALOGE("Can not create timer!%s", strerror(errno));
-    }
-}
-
-Return<Status> Vibrator::on(uint32_t timeoutMs) {
-    return activate(timeoutMs);
-}
-
-Return<Status> Vibrator::off() {
-    return activate(0);
-}
-
-Return<bool> Vibrator::supportsAmplitudeControl() {
-    return false;
-}
-
-Return<Status> Vibrator::setAmplitude(uint8_t amplitude) {
-    return Status::UNSUPPORTED_OPERATION;
-}
-
-Return<bool> Vibrator::supportsExternalControl() {
-    return false;
-}
-
-Return<Status> Vibrator::setExternalControl(bool enabled) {
-    return Status::UNSUPPORTED_OPERATION;
-}
-
-Return<void> Vibrator::perform(V1_0::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
-}
-
-Return<void> Vibrator::perform_1_1(V1_1::Effect_1_1 effect, EffectStrength strength,
-                                   perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
-}
-
-Return<void> Vibrator::perform_1_2(V1_2::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
-}
-
-Return<void> Vibrator::perform_1_3(V1_3::Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
-}
-
-Return<void> Vibrator::perform(Effect effect, EffectStrength strength, perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
-}
 
 template <typename T>
-Return<void> Vibrator::perform(T effect, EffectStrength strength, perform_cb _hidl_cb) {
-    _hidl_cb(Status::UNSUPPORTED_OPERATION, 0);
-    return Void();
+static void write_sysfs_node(const std::string& path, const T& val) {
+    std::ofstream node(path);
+    node << val;
 }
 
-Status Vibrator::enable(bool enabled, uint32_t ms) {
-    ALOGD("Enabled: %s -> %s\n", mEnabled ? "true" : "false", enabled ? "true" : "false");
-    char file[PATH_MAX];
-    char value[32];
-    int ret;
+static constexpr int32_t kComposeDelayMaxMs = 1000;
+static constexpr int32_t kComposeSizeMax = 256;
 
-    snprintf(file, sizeof(file), "%s/%s", LED_DEVICE, "duration");
-    snprintf(value, sizeof(value), "%u\n", ms);
-    ret = write_value(file, value);
-    
-    if (ret < 0) {
-        ALOGE("Failed to turn on vibrator!");
-        return Status::UNKNOWN_ERROR;
-    }
-
-    snprintf(file, sizeof(file), "%s/%s", LED_DEVICE, "activate");
-    ret = write_value(file, "1");
-    
-    if (ret < 0) {
-        ALOGE("Failed to turn on vibrator!");
-        return Status::UNKNOWN_ERROR;
-    }
-
-    mEnabled = enabled;
-    return Status::OK;
+ndk::ScopedAStatus Vibrator::getCapabilities(int32_t* _aidl_return) {
+    LOG(INFO) << "Vibrator reporting capabilities";
+    *_aidl_return = IVibrator::CAP_PERFORM_CALLBACK;
+    return ndk::ScopedAStatus::ok();
 }
 
-Status Vibrator::activate(uint32_t ms) {
-    std::lock_guard<std::mutex> lock{mMutex};
-    Status status = Status::OK;
+ndk::ScopedAStatus Vibrator::off() {
+    LOG(INFO) << "Vibrator off";
 
-    if (ms > 0) {
-        status = enable(true, ms);
-        if (status != Status::OK) {
-            return status;
-        }
-    }
+    write_sysfs_node(VIBRA_NODE(index), 0);
+    write_sysfs_node(VIBRA_NODE(activate), 0);
 
-    itimerspec ts{};
-    ts.it_value.tv_sec = ms / MS_PER_S;
-    ts.it_value.tv_nsec = ms % MS_PER_S * NS_PER_MS;
-
-    if (timer_settime(mTimer, 0, &ts, nullptr) < 0) {
-        ALOGE("Can not set timer!");
-        status = Status::UNKNOWN_ERROR;
-    }
-
-    if ((status != Status::OK) || !ms) {
-        Status _status;
-
-        _status = enable(false, ms);
-
-        if (status == Status::OK) {
-            status = _status;
-        }
-    }
-
-    return status;
+    return ndk::ScopedAStatus::ok();
 }
 
-void Vibrator::timeout() {
-    std::lock_guard<std::mutex> lock{mMutex};
-    itimerspec ts{};
+ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
+                                const std::shared_ptr<IVibratorCallback>& callback) {
+    LOG(INFO) << "Vibrator on for timeoutMs: " << timeoutMs;
+    LOG(INFO) << VIBRA_NODE(duration);
+    write_sysfs_node(VIBRA_NODE(duration), timeoutMs);
+    write_sysfs_node(VIBRA_NODE(activate), 1);
 
-    if (timer_gettime(mTimer, &ts) < 0) {
-        ALOGE("Can not read timer!");
-    }
-
-    if (ts.it_value.tv_sec == 0 && ts.it_value.tv_nsec == 0) {
-        enable(false, 0);
-    }
+    return ndk::ScopedAStatus::ok();
 }
 
-void Vibrator::timerCallback(union sigval sigval) {
-    static_cast<Vibrator*>(sigval.sival_ptr)->timeout();
-}
+ndk::ScopedAStatus Vibrator::perform(Effect effect, EffectStrength strength,
+                                     const std::shared_ptr<IVibratorCallback>& callback,
+                                     int32_t* _aidl_return) {
 
-const std::string Vibrator::effectToName(Effect effect) {
-    return toString(effect);
-}
+    uint32_t index = 0;
+    uint32_t timeoutMs = 0;
 
-uint32_t Vibrator::effectToMs(Effect effect, Status* status) {
     switch (effect) {
         case Effect::TICK:
+            index = WAVEFORM_TICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_TICK_EFFECT_MS;
+            break;
         case Effect::TEXTURE_TICK:
-        case Effect::THUD:
-        case Effect::POP:
-            return 5;
+            index = WAVEFORM_TEXTURE_TICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_TEXTURE_TICK_EFFECT_MS;
+            break;
         case Effect::CLICK:
+            index = WAVEFORM_CLICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_CLICK_EFFECT_MS;
+            break;
         case Effect::HEAVY_CLICK:
-            return 10;
+            index = WAVEFORM_HEAVY_CLICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_HEAVY_CLICK_EFFECT_MS;
+            break;
         case Effect::DOUBLE_CLICK:
-            return 15;
-        case Effect::RINGTONE_1:
-        case Effect::RINGTONE_2:
-        case Effect::RINGTONE_3:
-        case Effect::RINGTONE_4:
-        case Effect::RINGTONE_5:
-        case Effect::RINGTONE_6:
-        case Effect::RINGTONE_7:
-        case Effect::RINGTONE_8:
-        case Effect::RINGTONE_9:
-        case Effect::RINGTONE_10:
-        case Effect::RINGTONE_11:
-        case Effect::RINGTONE_12:
-        case Effect::RINGTONE_13:
-        case Effect::RINGTONE_14:
-        case Effect::RINGTONE_15:
-            return 30000;
+            index = WAVEFORM_DOUBLE_CLICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_DOUBLE_CLICK_EFFECT_MS;
+            break;
+        case Effect::THUD:
+            index = WAVEFORM_THUD_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_THUD_EFFECT_MS;
+            break;
+        case Effect::POP:
+            index = WAVEFORM_TICK_EFFECT_INDEX;
+            timeoutMs = WAVEFORM_POP_EFFECT_MS;
+            break;
+        default:
+            return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
-    *status = Status::UNSUPPORTED_OPERATION;
-    return 0;
+
+    write_sysfs_node(VIBRA_NODE(index), index);
+    ndk::ScopedAStatus ret = on(timeoutMs, nullptr);
+        
+    if (!ret.isOk()) {
+        return ret;
+    } else {
+        *_aidl_return = timeoutMs;
+    }
+
+    return ndk::ScopedAStatus::ok();
 }
 
-uint8_t Vibrator::strengthToAmplitude(EffectStrength strength, Status* status) {
-    switch (strength) {
-        case EffectStrength::LIGHT:
-            return 128;
-        case EffectStrength::MEDIUM:
-            return 192;
-        case EffectStrength::STRONG:
-            return 255;
-    }
-    *status = Status::UNSUPPORTED_OPERATION;
-    return 0;
+ndk::ScopedAStatus Vibrator::getSupportedEffects(std::vector<Effect>* _aidl_return) {
+    *_aidl_return = {
+        Effect::CLICK,
+        Effect::TICK,
+        Effect::TEXTURE_TICK,
+        Effect::HEAVY_CLICK,
+        Effect::DOUBLE_CLICK,
+        Effect::THUD,
+        Effect::POP
+    };
+    return ndk::ScopedAStatus::ok();
 }
 
-}  // namespace implementation
-}  // namespace V1_3
+ndk::ScopedAStatus Vibrator::setAmplitude(float amplitude) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::setExternalControl(bool enabled) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::getCompositionDelayMax(int32_t* maxDelayMs) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::getCompositionSizeMax(int32_t* maxSize) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::getSupportedPrimitives(std::vector<CompositePrimitive>* supported) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::getPrimitiveDuration(CompositePrimitive primitive,
+                                                  int32_t* durationMs) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::compose(const std::vector<CompositeEffect>& composite,
+                                     const std::shared_ptr<IVibratorCallback>& callback) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::getSupportedAlwaysOnEffects(std::vector<Effect>* _aidl_return) {
+    return getSupportedEffects(_aidl_return);
+}
+
+ndk::ScopedAStatus Vibrator::alwaysOnEnable(int32_t id, Effect effect, EffectStrength strength) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
+ndk::ScopedAStatus Vibrator::alwaysOnDisable(int32_t id) {
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+}
+
 }  // namespace vibrator
 }  // namespace hardware
 }  // namespace android
+}  // namespace aidl
