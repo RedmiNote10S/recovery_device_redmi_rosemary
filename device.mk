@@ -67,7 +67,11 @@ PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.3-service.mtk.recovery
+    android.hardware.vibrator-service.rosemary
+
+# Copy the vibrator into recovery image
+PRODUCT_COPY_FILES += \
+	$(OUT_DIR)/target/product/rosemary/system/bin/hw/android.hardware.vibrator-service.rosemary:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/hw/android.hardware.vibrator-service.rosemary
 
 # Fastbootd
 PRODUCT_PACKAGES += \

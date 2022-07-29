@@ -134,7 +134,7 @@ TARGET_USES_MKE2FS := true
 # Device config
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_SUPPORT_INPUT_1_2_HAPTICS := true
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 RECOVERY_SDCARD_ON_DATA := true
