@@ -38,9 +38,6 @@ static void write_sysfs_node(const std::string& path, const T& val) {
     node << val;
 }
 
-static constexpr int32_t kComposeDelayMaxMs = 1000;
-static constexpr int32_t kComposeSizeMax = 256;
-
 ndk::ScopedAStatus Vibrator::getCapabilities(int32_t* _aidl_return) {
     LOG(INFO) << "Vibrator reporting capabilities";
     *_aidl_return = IVibrator::CAP_PERFORM_CALLBACK;
@@ -57,7 +54,7 @@ ndk::ScopedAStatus Vibrator::off() {
 }
 
 ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
-                                const std::shared_ptr<IVibratorCallback>& callback) {
+                                __attribute__((unused)) const std::shared_ptr<IVibratorCallback>& callback) {
     LOG(INFO) << "Vibrator on for timeoutMs: " << timeoutMs;
     LOG(INFO) << VIBRA_NODE(duration);
     write_sysfs_node(VIBRA_NODE(duration), timeoutMs);
@@ -66,8 +63,8 @@ ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
     return ndk::ScopedAStatus::ok();
 }
 
-ndk::ScopedAStatus Vibrator::perform(Effect effect, EffectStrength strength,
-                                     const std::shared_ptr<IVibratorCallback>& callback,
+ndk::ScopedAStatus Vibrator::perform(Effect effect, __attribute__((unused)) EffectStrength strength,
+                                     __attribute__((unused)) const std::shared_ptr<IVibratorCallback>& callback,
                                      int32_t* _aidl_return) {
 
     uint32_t index = 0;
@@ -131,45 +128,45 @@ ndk::ScopedAStatus Vibrator::getSupportedEffects(std::vector<Effect>* _aidl_retu
     return ndk::ScopedAStatus::ok();
 }
 
-ndk::ScopedAStatus Vibrator::setAmplitude(float amplitude) {
+ndk::ScopedAStatus Vibrator::setAmplitude(__attribute__((unused)) float amplitude) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::setExternalControl(bool enabled) {
+ndk::ScopedAStatus Vibrator::setExternalControl(__attribute__((unused)) bool enabled) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::getCompositionDelayMax(int32_t* maxDelayMs) {
+ndk::ScopedAStatus Vibrator::getCompositionDelayMax(__attribute__((unused)) int32_t* maxDelayMs) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::getCompositionSizeMax(int32_t* maxSize) {
+ndk::ScopedAStatus Vibrator::getCompositionSizeMax(__attribute__((unused)) int32_t* maxSize) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::getSupportedPrimitives(std::vector<CompositePrimitive>* supported) {
+ndk::ScopedAStatus Vibrator::getSupportedPrimitives(__attribute__((unused)) std::vector<CompositePrimitive>* supported) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::getPrimitiveDuration(CompositePrimitive primitive,
-                                                  int32_t* durationMs) {
+ndk::ScopedAStatus Vibrator::getPrimitiveDuration(__attribute__((unused)) CompositePrimitive primitive,
+                                                  __attribute__((unused)) int32_t* durationMs) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::compose(const std::vector<CompositeEffect>& composite,
-                                     const std::shared_ptr<IVibratorCallback>& callback) {
+ndk::ScopedAStatus Vibrator::compose(__attribute__((unused)) const std::vector<CompositeEffect>& composite,
+                                     __attribute__((unused)) const std::shared_ptr<IVibratorCallback>& callback) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::getSupportedAlwaysOnEffects(std::vector<Effect>* _aidl_return) {
+ndk::ScopedAStatus Vibrator::getSupportedAlwaysOnEffects(__attribute__((unused)) std::vector<Effect>* _aidl_return) {
     return getSupportedEffects(_aidl_return);
 }
 
-ndk::ScopedAStatus Vibrator::alwaysOnEnable(int32_t id, Effect effect, EffectStrength strength) {
+ndk::ScopedAStatus Vibrator::alwaysOnEnable(__attribute__((unused)) int32_t id, __attribute__((unused)) Effect effect, __attribute__((unused)) EffectStrength strength) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-ndk::ScopedAStatus Vibrator::alwaysOnDisable(int32_t id) {
+ndk::ScopedAStatus Vibrator::alwaysOnDisable(__attribute__((unused)) int32_t id) {
     return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
