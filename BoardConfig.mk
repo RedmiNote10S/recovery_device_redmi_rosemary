@@ -123,7 +123,7 @@ PLATFORM_VERSION := 16.1.0
 ## TWRP-Specific configuration
 
 TW_THEME := portrait_hdpi
-TW_DEVICE_VERSION := 1
+TW_DEVICE_VERSION := 2
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_REPACKTOOLS := true
@@ -143,7 +143,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.
 
 ifneq ($(OF_HIDE_NOTCH),1)
     # Configure Status bar icons for regular TWRP builds only
-    TW_CUSTOM_CLOCK_POS := 30
+    TW_CUSTOM_CLOCK_POS := 40
     TW_CUSTOM_CPU_POS := 605
     TW_STATUS_ICONS_ALIGN := center
 endif

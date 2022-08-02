@@ -43,7 +43,8 @@ if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 		# Version / Maintainer infos
 		export OF_MAINTAINER="Woomymy"
 		export FOX_VERSION=R11.1_1
-		export FOX_BUILD_TYPE="Beta"
+		export FOX_BUILD_TYPE="Unofficial"
+        export FOX_VARIANT="A11"
 
 		# Device info
 		export OF_AB_DEVICE=1
