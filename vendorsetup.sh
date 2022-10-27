@@ -57,7 +57,7 @@ if [ -f "$(gettop)/bootable/recovery/orangefox.cpp" ]; then
 		export OF_DONT_PATCH_ON_FRESH_INSTALLATION=1
 		export OF_DONT_PATCH_ENCRYPTED_DEVICE=1
 		export OF_KEEP_DM_VERITY_FORCED_ENCRYPTION=1
-		export OF_SKIP_FBE_DECRYPTION_SDKVERSION=31 # Don't try to decrypt A12
+		export OF_SKIP_FBE_DECRYPTION_SDKVERSION=34 # Don't try to decrypt A14(?)
 		export OF_SKIP_DECRYPTED_ADOPTED_STORAGE=1
 
 		# Display / Leds
